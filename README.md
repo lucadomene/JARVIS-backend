@@ -16,7 +16,7 @@ Per creare il database, entrare sul terminale MySQL (`mysql -u {user} -p`, preme
 CREATE DATABASE springdatabase;
 ```
 Una volta creato il database, andremo a dire a SpringBoot come effettuare l'accesso a MySQL e su quale database lavorare.
-Per fare ciò modifichiamo il file [a application.properties](https://github.com/lucadomene/JARVIS-backend/blob/main/src/main/resources/application.properties) e scriviamolo come segue:
+Per fare ciò modifichiamo il file [application.properties](https://github.com/lucadomene/JARVIS-backend/blob/main/src/main/resources/application.properties) e scriviamolo come segue:
 ```
 spring.application.name=backend
 spring.jpa.hibernate.ddl-auto=update
