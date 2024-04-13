@@ -9,14 +9,14 @@ Repository del progetto di backend del corso di "Ingegneria del Software" (UniFe
 ## Funzionamento di prova
 ### Configurazione MySQL
 Prima di far partire l'applicativo, bisogna assicurarsi che sia configurata localmente un'istanza di MySQL e che sia attualmente attiva (`systemctl status mysql` per Ubuntu/Debian, `systemctl status mysqld` per Fedora).
-Innanzitutto bisognera` disporre di un username e password configurati per accedere al database. 
-Successivamente creeremo un database sul quale andra` a lavorare l'applicativo SpringBoot, nel nostro caso avra` un nome di default ovvero `springdatabase`.
+Innanzitutto bisognerà disporre di un username e password configurati per accedere al database. 
+Successivamente creeremo un database sul quale andrà a lavorare l'applicativo SpringBoot, nel nostro caso avrà un nome di default ovvero `springdatabase`.
 Per creare il database, entrare sul terminale MySQL (`mysql -u {user} -p`, premere invio e inserire la propria password) e digitare la seguente query:
 ```
 CREATE DATABASE springdatabase;
 ```
 Una volta creato il database, andremo a dire a SpringBoot come effettuare l'accesso a MySQL e su quale database lavorare.
-Per fare cio` modifichiamo il file [a application.properties](https://github.com/lucadomene/JARVIS-backend/blob/main/src/main/resources/application.properties) e scriviamolo come segue:
+Per fare ciò modifichiamo il file [a application.properties](https://github.com/lucadomene/JARVIS-backend/blob/main/src/main/resources/application.properties) e scriviamolo come segue:
 ```
 spring.application.name=backend
 spring.jpa.hibernate.ddl-auto=update
@@ -27,4 +27,3 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 #spring.jpa.show-sql: true
 ```
 Complimenti! Abbiamo agganciato SpringBoot a MySQL.
-
