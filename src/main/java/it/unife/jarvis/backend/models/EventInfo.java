@@ -1,9 +1,11 @@
 package it.unife.jarvis.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Value
-@NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EventInfo {
