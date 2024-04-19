@@ -1,0 +1,31 @@
+
+REST
+
+PROPOSTA_EVENTO:
+    ID_Evento
+    Data
+    Orario_Inizio
+    Orario_Fine
+    Tipo_evento
+    Num_partecipanti
+
+
+DATABASE
+
+LUOGO:
+        ID_Luogo
+        Nazione
+        Regione
+        Città
+        Indirizzo
+        Coordinate?
+        Data
+        Orario_Inizio_Festivo
+        Orario_Fine_Festivo
+        Orario_Inizio_Feriale
+        Orario_Fine_Feriale
+        Capienza
+
+
+Personale
+    Nome_Ditta, Settore(Multifra), Costo_ora
