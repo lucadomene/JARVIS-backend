@@ -23,8 +23,8 @@ public class DatabaseController {
 	private DatabaseService databaseService;
 
 	@PostMapping("/add")
-	public @ResponseBody String addNewVenue (@RequestParam String name, @RequestParam String address) {
-		databaseService.insert(name, address);
+	public @ResponseBody String addNewVenue (@RequestParam String name, @RequestParam String address, @RequestParam String openHours) {
+		databaseService.insert(name, address, openHours);
 		return "Saved successfully";
 	}
 

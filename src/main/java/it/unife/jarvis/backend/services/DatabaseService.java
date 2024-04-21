@@ -1,6 +1,8 @@
 package it.unife.jarvis.backend.services;
 
 import it.unife.jarvis.backend.models.Venue;
+import it.unife.jarvis.backend.models.EmbeddableFields.TimeInterval;
+import it.unife.jarvis.backend.models.EmbeddableFields.Address;
 import it.unife.jarvis.backend.repositories.VenuesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,13 @@ public class DatabaseService {
 	@Autowired
 	private VenuesRepository venuesRepository;
 
-	public void insert (String name, String address) {
+	public void insert (String name, String address, String openHours) {
+		var addr = new Address(address);
+		var normalShift = new TimeInterval(openHours);
 		var v = new Venue();
 		v.setName(name);
-		v.setAddress(address);
+		v.setAddress(addr);
+		v.setOpenHours(normalShift);
 		venuesRepository.save(v);
 	}
 
