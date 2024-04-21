@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.boot.CommandLineRunner;
 
 import it.unife.jarvis.backend.components.RESTConsumer;
+import it.unife.jarvis.backend.models.EventInfo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,8 @@ public class BackendApplication {
 	@Bean
 	public CommandLineRunner run(RESTConsumer consumer) throws Exception {
 		return args -> {
-			String output = consumer.consumeREST("https://3d4b2335-1631-475f-ab52-03bf26a3d594.mock.pstmn.io/test");
-			log.info(output);
+			EventInfo output = consumer.consumeRESTParse("http://localhost:3000/api/mock_supplier", EventInfo.class); //https://3d4b2335-1631-475f-ab52-03bf26a3d594.mock.pstmn.io/test
+			log.info(output.toString());
 		};
 	}
 }
