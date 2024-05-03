@@ -19,23 +19,27 @@ public class Venue {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	Long id;
 
-	private String name;
+	String name;
 
 	String address;
+
+	int max_capacity;
+
+	double rent_cost;
 
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name="open", column = @Column(name="weekdayOpen")),
 		@AttributeOverride(name="close", column = @Column(name="weekdayClose"))
 	})
-	private EmbeddableFields.TimeInterval weekdayHours;
+	EmbeddableFields.TimeInterval weekdayHours;
 
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name="open", column = @Column(name="weekendOpen")),
 		@AttributeOverride(name="close", column = @Column(name="weekendClose"))
 	})
-	private EmbeddableFields.TimeInterval weekendHours;
+	EmbeddableFields.TimeInterval weekendHours;
 }
