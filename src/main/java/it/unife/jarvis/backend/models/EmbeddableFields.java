@@ -17,10 +17,10 @@ public class EmbeddableFields {
 		Time open;
 		Time close;
 
-		public TimeInterval(String completeTimeInterval) {
+		/* public TimeInterval(String completeTimeInterval) {
 			String[] splitTimeInterval = completeTimeInterval.split("-");
 			this.open = Time.valueOf(splitTimeInterval[0]);
 			this.close = Time.valueOf(splitTimeInterval[1]);
-		}
+		} */
 	}
 }
