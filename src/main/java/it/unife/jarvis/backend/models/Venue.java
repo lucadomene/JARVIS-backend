@@ -23,7 +23,19 @@ public class Venue {
 
 	private String name;
 
-	@Embedded private EmbeddableFields.Address address;
+	String address;
 
-	@Embedded private EmbeddableFields.TimeInterval openHours;
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="open", column = @Column(name="weekdayOpen")),
+		@AttributeOverride(name="close", column = @Column(name="weekdayClose"))
+	})
+	private EmbeddableFields.TimeInterval weekdayHours;
+
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="open", column = @Column(name="weekendOpen")),
+		@AttributeOverride(name="close", column = @Column(name="weekendClose"))
+	})
+	private EmbeddableFields.TimeInterval weekendHours;
 }
