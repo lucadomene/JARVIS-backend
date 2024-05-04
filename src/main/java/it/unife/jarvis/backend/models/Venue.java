@@ -1,17 +1,11 @@
 package it.unife.jarvis.backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.AttributeOverrides;
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name="venue")
@@ -45,4 +39,16 @@ public class Venue {
 		@AttributeOverride(name="close", column = @Column(name="weekendClose"))
 	})
 	EmbeddableFields.TimeInterval weekendHours;
+
+	@ElementCollection
+	@CollectionTable(
+			name="closingDays",
+			joinColumns = @JoinColumn(name = "venueId")
+	)
+	List<String> closingDays;
+
+	@OneToMany
+	@JoinColumn(name="venueId")
+	List<Booking> booking;
+
 }

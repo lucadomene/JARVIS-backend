@@ -1,17 +1,12 @@
 package it.unife.jarvis.backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.AttributeOverrides;
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="personnel")
@@ -38,4 +33,18 @@ public class AuxiliaryPersonnel {
 		@AttributeOverride(name="close", column = @Column(name="weekendClose"))
 	})
 	EmbeddableFields.TimeInterval weekendHours;
+
+	@ElementCollection
+	@CollectionTable(
+			name="sector",
+			joinColumns = @JoinColumn(name = "AuxiliaryPersonnelId")
+	)
+	List<String> sector;
+
+	@ManyToMany
+	@JoinTable(name="work_for",
+			joinColumns = @JoinColumn(name = "AuxiliaryPersonnelId"),
+			inverseJoinColumns = @JoinColumn(name="bookingId")
+	)
+	Set<Booking> bookings;
 }
