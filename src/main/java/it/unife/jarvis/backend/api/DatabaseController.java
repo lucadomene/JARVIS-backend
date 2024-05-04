@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -23,8 +23,8 @@ public class DatabaseController {
 	private DatabaseService databaseService;
 
 	@PostMapping("/add")
-	public @ResponseBody String addNewVenue (@RequestParam String name, @RequestParam String address, @RequestParam String openHours) {
-		databaseService.insert(name, address, openHours);
+	public @ResponseBody String addNewVenue (@RequestBody Venue venue) {
+		databaseService.insert(venue);
 		return "Saved successfully";
 	}
 
@@ -33,8 +33,8 @@ public class DatabaseController {
 		return databaseService.listAll();
 	}
 
-	@GetMapping("/del/{venueID}")
-	public String deleteVenue (@PathVariable("venueID") Long id) {
+	@GetMapping("/del")
+	public String deleteVenue (@RequestParam Long id) {
 		databaseService.delete(id);
 		return "Deleted successfully";
 	}
