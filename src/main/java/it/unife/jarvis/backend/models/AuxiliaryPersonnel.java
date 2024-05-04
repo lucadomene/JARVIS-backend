@@ -11,11 +11,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="DITTA")
+@Table(name="personnel")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ditta {
+public class AuxiliaryPersonell {
 	
 	@Id
 	String name;

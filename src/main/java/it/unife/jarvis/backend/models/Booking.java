@@ -14,7 +14,7 @@ import java.sql.Time;
 import java.sql.Date;
 
 @Entity
-@Table(name="BOOKING")
+@Table(name="booking")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
