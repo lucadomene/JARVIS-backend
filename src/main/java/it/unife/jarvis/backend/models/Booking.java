@@ -23,7 +23,7 @@ public class Booking {
 
 	Time time;
 
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name="venue")
-	Venue venue;
+	Venue venue;*/
 }
