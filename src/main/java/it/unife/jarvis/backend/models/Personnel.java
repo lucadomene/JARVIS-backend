@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuxiliaryPersonnel {
+public class Personnel {
 	
 	@Id
 	String name;
@@ -37,13 +37,13 @@ public class AuxiliaryPersonnel {
 	@ElementCollection
 	@CollectionTable(
 			name="sector",
-			joinColumns = @JoinColumn(name = "AuxiliaryPersonnelId")
+			joinColumns = @JoinColumn(name = "PersonnelId")
 	)
 	List<String> sector;
 
 	@ManyToMany
 	@JoinTable(name="work_for",
-			joinColumns = @JoinColumn(name = "AuxiliaryPersonnelId"),
+			joinColumns = @JoinColumn(name = "PersonnelId"),
 			inverseJoinColumns = @JoinColumn(name="bookingId")
 	)
 	Set<Booking> bookings;
