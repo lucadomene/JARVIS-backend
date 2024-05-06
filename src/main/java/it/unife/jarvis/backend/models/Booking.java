@@ -27,5 +27,5 @@ public class Booking {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="venue")
-	List<Booking> booking;
+	List<Venue> venue;
 }
