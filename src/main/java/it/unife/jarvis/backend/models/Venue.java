@@ -47,7 +47,7 @@ public class Venue {
 	)
 	List<String> closingDays;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="venueId")
 	List<Booking> booking;
 
