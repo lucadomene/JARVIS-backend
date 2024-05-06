@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name="booking")
@@ -23,7 +24,8 @@ public class Booking {
 
 	Time time;
 
-	/*@ManyToOne
+
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="venue")
-	Venue venue;*/
+	List<Booking> booking;
 }
