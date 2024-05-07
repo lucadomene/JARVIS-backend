@@ -14,8 +14,7 @@ public class EmbeddableFields {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class TimeInterval {
-		Time open;
-		Time close;
-
+		Time start;
+		Time end;
 	}
 }

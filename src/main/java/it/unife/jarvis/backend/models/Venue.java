@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import java.sql.Date;
+
 @Entity
-@Table(name="venue")
+@Table(name="venues")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,28 +30,26 @@ public class Venue {
 
 	@Embedded
 	@AttributeOverrides({
-		@AttributeOverride(name="open", column = @Column(name="weekdayOpen")),
-		@AttributeOverride(name="close", column = @Column(name="weekdayClose"))
+		@AttributeOverride(name="start", column = @Column(name="weekday_open")),
+		@AttributeOverride(name="end", column = @Column(name="weekday_close"))
 	})
 	EmbeddableFields.TimeInterval weekdayHours;
 
 	@Embedded
 	@AttributeOverrides({
-		@AttributeOverride(name="open", column = @Column(name="weekendOpen")),
-		@AttributeOverride(name="close", column = @Column(name="weekendClose"))
+		@AttributeOverride(name="start", column = @Column(name="weekend_open")),
+		@AttributeOverride(name="end", column = @Column(name="weekend_close"))
 	})
 	EmbeddableFields.TimeInterval weekendHours;
 
 	@ElementCollection
-	@CollectionTable(
-			name="closingDays",
-			joinColumns = @JoinColumn(name = "venueId")
-	)
-	List<String> closingDays;
+	@CollectionTable( name="closing_days", foreignKey = @ForeignKey(
+			name = "venue_id",
+			foreignKeyDefinition = "foreign key (venue_id) references venues (id) on delete cascade"))
+	@Column(name="closing_day")
+	List<Date> closingDays;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="venueId")
-	Venue venue;
-
-
+	// @ManyToOne(cascade = CascadeType.ALL)
+	// @JoinColumn(name="venueId")
+	// Venue venue;
 }

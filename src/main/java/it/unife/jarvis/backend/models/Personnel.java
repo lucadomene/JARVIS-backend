@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="personnel")
@@ -22,29 +21,22 @@ public class Personnel {
 
 	@Embedded
 	@AttributeOverrides({
-		@AttributeOverride(name="open", column = @Column(name="weekdayOpen")),
-		@AttributeOverride(name="close", column = @Column(name="weekdayClose"))
+		@AttributeOverride(name="start", column = @Column(name="weekday_open")),
+		@AttributeOverride(name="end", column = @Column(name="weekday_close"))
 	})
-	EmbeddableFields.TimeInterval weekdayHours;
+	EmbeddableFields.TimeInterval WEEKDAY_Hours;
 
 	@Embedded
 	@AttributeOverrides({
-		@AttributeOverride(name="open", column = @Column(name="weekendOpen")),
-		@AttributeOverride(name="close", column = @Column(name="weekendClose"))
+		@AttributeOverride(name="start", column = @Column(name="weekend_open")),
+		@AttributeOverride(name="end", column = @Column(name="weekend_close"))
 	})
 	EmbeddableFields.TimeInterval weekendHours;
 
 	@ElementCollection
-	@CollectionTable(
-			name="sector",
-			joinColumns = @JoinColumn(name = "PersonnelId")
-	)
+	@CollectionTable( name="sectors", foreignKey = @ForeignKey(
+			name = "personnel_name",
+			foreignKeyDefinition = "foreign key (personnel_name) references personnel (name) on delete cascade"))
+	@Column(name="sector")
 	List<String> sector;
-
-	@ManyToMany
-	@JoinTable(name="work_for",
-			joinColumns = @JoinColumn(name = "PersonnelId"),
-			inverseJoinColumns = @JoinColumn(name="bookingId")
-	)
-	Set<Booking> bookings;
 }

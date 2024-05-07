@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.sql.Date;
+
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name="booking")
+@Table(name="bookings")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,10 +24,21 @@ public class Booking {
 
 	Date date;
 
-	Time time;
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="start", column = @Column(name="start_time")),
+		@AttributeOverride(name="end", column = @Column(name="end_time"))
+	})
+	EmbeddableFields.TimeInterval duration;
 
+	@ManyToOne
+	@JoinColumn(name="venue_id")
+	Venue venue;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="venue")
-	List<Venue> venue;
+	@ManyToMany
+	@JoinTable(name="work_for",
+			joinColumns = @JoinColumn(name = "booking_id"),
+			inverseJoinColumns = @JoinColumn(name="personnel_name")
+	)
+	Set<Personnel> personnel;
 }
