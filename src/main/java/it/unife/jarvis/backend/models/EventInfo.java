@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EventInfo {
-	String event_id;
+	int event_id;
 	String event_type;
 	String date;
 	String schedule_start;
