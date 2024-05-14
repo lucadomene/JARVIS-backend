@@ -1,7 +1,7 @@
 package it.unife.jarvis.backend.api;
 
 import it.unife.jarvis.backend.models.Venue;
-import it.unife.jarvis.backend.services.DatabaseService;
+import it.unife.jarvis.backend.services.VenueService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,13 +30,13 @@ public class VenueController {
 
 	@GetMapping("/ls")
 	public ResponseEntity<List<Venue>> listAllVenues () {
-		HttpHeaders responseHeaders = new HttpHeaders();
-		return venueService.listAll();
+		// HttpHeaders responseHeaders = new HttpHeaders();
+		return ResponseEntity.ok(venueService.listAll());
 	}
 
 	@GetMapping("/del")
-	public String deleteVenue (@RequestParam Long id) {
+	public ResponseEntity<String> deleteVenue (@RequestParam Long id) {
 		venueService.delete(id);
-		return "Deleted successfully";
+		return ResponseEntity.ok("Deleted successfully");
 	}
 }

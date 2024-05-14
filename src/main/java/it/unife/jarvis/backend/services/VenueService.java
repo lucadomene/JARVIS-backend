@@ -15,7 +15,7 @@ public class VenueService {
 
 	public Long insert (Venue venue) {
 		Venue temp = venuesRepository.save(venue);
-		return temp.id;
+		return temp.getId();
 	}
 
 	public Venue getOne (Long id) {
