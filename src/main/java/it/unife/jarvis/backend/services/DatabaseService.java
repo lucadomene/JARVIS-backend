@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DatabaseService {
+public class VenueService {
 	@Autowired
 	private VenuesRepository venuesRepository;
 
-	public void insert (Venue venue) {
-		venuesRepository.save(venue);
+	public Long insert (Venue venue) {
+		Venue temp = venuesRepository.save(venue);
+		return temp.id;
 	}
 
 	public Venue getOne (Long id) {

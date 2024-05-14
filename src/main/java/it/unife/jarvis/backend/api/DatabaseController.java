@@ -11,31 +11,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/database")
-public class DatabaseController {
+@RequestMapping("/api/venue")
+public class VenueController {
 
 	@Autowired
-	private DatabaseService databaseService;
+	private VenueService venueService;
 
 	@PostMapping("/add")
-	public @ResponseBody String addNewVenue (@RequestBody Venue venue) {
-		databaseService.insert(venue);
-		return "Saved successfully";
+	public ResponseEntity<String> addNewVenue (@RequestBody Venue venue) {
+		Long id = venueService.insert(venue);
+		return ResponseEntity.ok("Entity ID=" + id + " saved successfully\n");
 	}
 
 	@GetMapping("/ls")
-	public @ResponseBody List<Venue> listAllVenues () {
-		return databaseService.listAll();
+	public ResponseEntity<List<Venue>> listAllVenues () {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		return venueService.listAll();
 	}
 
 	@GetMapping("/del")
 	public String deleteVenue (@RequestParam Long id) {
-		databaseService.delete(id);
+		venueService.delete(id);
 		return "Deleted successfully";
 	}
 }
