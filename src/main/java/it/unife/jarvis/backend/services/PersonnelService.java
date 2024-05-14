@@ -13,17 +13,17 @@ public class PersonnelService {
 	@Autowired
 	private PersonnelRepository personnelRepository;
 
-	public Long insert (Personnel personnel) {
-		Personnel temp = PersonnelRepository.save(personnel);
-		return temp.getId();
+	public String insert (Personnel personnel) {
+		Personnel temp = personnelRepository.save(personnel);
+		return temp.getName();
 	}
 
-	public Personnel getOne (Long id) {
-		return personnelRepository.findById(id).get();
+	public Personnel getOne (String name) {
+		return personnelRepository.findById(name).get();
 	}
 
-	public void delete (Long id) {
-		personnelRepository.deleteById(id);
+	public void delete (String name) {
+		personnelRepository.deleteById(name);
 	}
 
 	public List<Personnel> listAll () {

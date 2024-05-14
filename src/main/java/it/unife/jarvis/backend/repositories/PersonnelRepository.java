@@ -1,4 +1,4 @@
-package it.unife.jarvis.backend.repository;
+package it.unife.jarvis.backend.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import it.unife.jarvis.backend.models.Personnel;

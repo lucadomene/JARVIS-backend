@@ -23,7 +23,7 @@ public class BookingController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addNewBooking (@RequestBody Booking booking) {
-        Long id = BookingService.insert(booking);
+        Long id = bookingService.insert(booking);
         return ResponseEntity.ok("Entity ID=" + id + " saved successfully\n");
     }
 
