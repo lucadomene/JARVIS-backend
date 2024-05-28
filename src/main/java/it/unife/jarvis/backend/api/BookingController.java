@@ -1,6 +1,7 @@
 package it.unife.jarvis.backend.api;
 
 import it.unife.jarvis.backend.models.Booking;
+import it.unife.jarvis.backend.models.BookingDTO;
 import it.unife.jarvis.backend.services.BookingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,14 @@ public class BookingController {
     private BookingService bookingService;
 
     @PostMapping("/add")
-    public ResponseEntity<String> addNewBooking (@RequestBody Booking booking) {
-        Long id = bookingService.insert(booking);
-        return ResponseEntity.ok("Entity ID=" + id + " saved successfully\n");
+    public ResponseEntity<String> addNewBooking (@RequestBody BookingDTO booking) {
+        try {
+			Long id = bookingService.insert(booking);
+			return ResponseEntity.ok("Entity ID=" + id + " saved successfully\n");
+		} catch (Exception exc) {
+			exc.printStackTrace();
+			return ResponseEntity.ok(exc.getMessage());
+		}
     }
 
     @GetMapping("/ls")

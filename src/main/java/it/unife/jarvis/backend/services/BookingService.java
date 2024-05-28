@@ -1,21 +1,49 @@
 package it.unife.jarvis.backend.services;
 
 import it.unife.jarvis.backend.models.Booking;
+import it.unife.jarvis.backend.models.Venue;
+import it.unife.jarvis.backend.models.Personnel;
+import it.unife.jarvis.backend.models.BookingDTO;
 import it.unife.jarvis.backend.repositories.BookingsRepository;
+import it.unife.jarvis.backend.repositories.VenuesRepository;
+import it.unife.jarvis.backend.repositories.PersonnelRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Iterator;
 
 @Service
 public class BookingService {
 	@Autowired
 	private BookingsRepository bookingsRepository;
 
-	public Long insert (Booking booking) {
-		Booking temp = bookingsRepository.save(booking);
-		return temp.getId();
+	@Autowired
+	private VenuesRepository venuesRepository;
+
+	@Autowired
+	private PersonnelRepository personnelRepository;
+
+	public Long insert (BookingDTO booking) throws Exception{
+		System.out.println(booking.getVenueId());
+		Venue venue = this.venuesRepository.findById(booking.getVenueId()).orElseThrow(() -> new Exception("invalid venue ID"));
+
+		Set<Personnel> personnel = new HashSet<Personnel>();
+		Iterator<String> personnelNameIterator = booking.getPersonnelName().iterator();
+		while(personnelNameIterator.hasNext()) {
+			Personnel tempPersonnel = this.personnelRepository.findById(personnelNameIterator.next()).orElseThrow(() -> new Exception("invalid personnel Name"));
+			personnel.add(tempPersonnel);
+		}
+		Booking tempBooking = new Booking();
+		tempBooking.setDate(booking.getDate());
+		tempBooking.setDuration(booking.getDuration());
+		tempBooking.setVenue(venue);
+		tempBooking.setPersonnel(personnel);
+		
+		return (bookingsRepository.save(tempBooking)).getId();
 	}
 
 	public Booking getOne (Long id) {

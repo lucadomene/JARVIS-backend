@@ -24,7 +24,7 @@ public class Personnel {
 		@AttributeOverride(name="start", column = @Column(name="weekday_open")),
 		@AttributeOverride(name="end", column = @Column(name="weekday_close"))
 	})
-	EmbeddableFields.TimeInterval WEEKDAY_Hours;
+	EmbeddableFields.TimeInterval weekdayHours;
 
 	@Embedded
 	@AttributeOverrides({
