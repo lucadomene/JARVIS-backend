@@ -6,6 +6,8 @@ import it.unife.jarvis.backend.repositories.VenuesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -24,6 +26,13 @@ public class VenueService {
 
 	public void delete (Long id) {
 		venuesRepository.deleteById(id);
+	}
+
+	public List<Venue> listAvailable(String date, String start, String end) {
+		Date dateParsed = java.sql.Date.valueOf(date);
+		Time startParsed = java.sql.Time.valueOf(start);
+		Time endParsed = java.sql.Time.valueOf(end);
+		return venuesRepository.findAvailableVenue(dateParsed, startParsed, endParsed);
 	}
 
 	public List<Venue> listAll () {

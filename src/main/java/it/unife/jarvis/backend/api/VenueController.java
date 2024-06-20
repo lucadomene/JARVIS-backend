@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+// import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +26,16 @@ public class VenueController {
 	public ResponseEntity<String> addNewVenue (@RequestBody Venue venue) {
 		Long id = venueService.insert(venue);
 		return ResponseEntity.ok("Entity ID=" + id + " saved successfully\n");
+	}
+
+	@GetMapping("/available")
+	public ResponseEntity<List<Venue>> listAvailable (
+			@RequestParam String date,
+			@RequestParam String start,
+			@RequestParam String end
+	) {
+		List<Venue> venues = venueService.listAvailable(date, start, end);
+		return ResponseEntity.ok(venues);
 	}
 
 	@GetMapping("/ls")
