@@ -22,6 +22,9 @@ public interface VenuesRepository extends JpaRepository<Venue, Long> {
             "    AND ((DAYOFWEEK(?1) NOT IN (1, 7) AND v.weekdayHours.start <= ?2 AND v.weekdayHours.end >= ?3)\n" +
             "        OR (DAYOFWEEK(?1) IN (1, 7) AND v.weekendHours.start <= ?2 AND v.weekendHours.end >= ?3))")
     List<Venue> findAvailableVenue(java.sql.Date date, java.sql.Time start, java.sql.Time end);
-    
 
+    @Query("SELECT b\n" +
+            "FROM Booking b JOIN Venue v ON b.venue = v\n" +
+            "WHERE v.name = ?1 OR v.id = ?2")
+    List<Booking> getBokkingOfVenue(String name, Long id);
 }
