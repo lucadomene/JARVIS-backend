@@ -13,8 +13,8 @@ public interface BookingsRepository extends JpaRepository<Booking, Long> {
             "WHERE v.name = ?1 OR v.id = ?2")
     List<Booking> getBookingOfVenue(String name, Long id);
 
-    /* @Query("SELECT b\n" +
-            "FROM Booking b JOIN Personnel p ON p = b.personnel\n" +
+   /* @Query("SELECT b\n" +
+            "FROM Booking b JOIN Personnel p ON p.name = b.personnel.personnel_name\n" +
             "WHERE p.name = ?1")
     List<Booking> getBookingsOfPersonnel(String name); */
 
