@@ -40,13 +40,12 @@ public class VenueController {
 
 	@GetMapping("/ls")
 	public ResponseEntity<List<Venue>> listAllVenues () {
-		// HttpHeaders responseHeaders = new HttpHeaders();
 		return ResponseEntity.ok(venueService.listAll());
 	}
 
 	@GetMapping("/del")
 	public ResponseEntity<String> deleteVenue (@RequestParam Long id) {
 		venueService.delete(id);
-		return ResponseEntity.ok("Deleted successfully");
+		return ResponseEntity.ok("Deleted successfully entity with id = " + id);
 	}
 }
