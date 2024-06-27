@@ -8,9 +8,10 @@ import java.util.List;
 
 public interface BookingsRepository extends JpaRepository<Booking, Long> {
 
-    @Query("SELECT b\n" +
-            "FROM Booking b JOIN Venue v ON b.venue = v\n" +
-            "WHERE v.name = ?1 OR v.id = ?2")
+    @Query("""
+            SELECT b
+            FROM Booking b JOIN Venue v ON b.venue = v
+            WHERE v.name = ?1 OR v.id = ?2""")
     List<Booking> getBookingOfVenue(String name, Long id);
 
    /* @Query("SELECT b\n" +

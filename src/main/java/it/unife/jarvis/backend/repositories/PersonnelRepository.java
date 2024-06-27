@@ -7,17 +7,21 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface PersonnelRepository extends JpaRepository<Personnel, String> {
-   @Query("SELECT p\n" +
-            "FROM Personnel p\n" +
-           "         JOIN p.sector s\n" +
-            "WHERE p.sector = 'Intrattenimento'\n" +
-            "  AND p.name NOT IN (\n" +
-            "    SELECT DISTINCT p.name\n" +
-            "    FROM Booking b JOIN b.personnel p\n" +
-            "    WHERE b.date = '2024-05-16'\n" +
-            "      AND ((b.duration.start < '17:00:00.000000' AND b.duration.end > '14:00:00.000000'))\n" +
-            "      AND ((DAYOFWEEK('2024-05-16') NOT IN (1, 7) AND p.weekdayHours.start <= '14:00:00.000000' AND p.weekdayHours.end >= '17:00:00.000000')\n" +
-            "        OR (DAYOFWEEK('2024-05-16') IN (1, 7) AND p.weekdayHours.start <= '14:00:00.000000' AND p.weekdayHours.end >= '17:00:00.000000'))\n" +
-            ")")
-    List<Personnel> getPersonnelDisponibility();
+
+    @Query("""
+           SELECT p
+           FROM Personnel p JOIN p.sector s
+           WHERE s IN ?1
+           AND p.name NOT IN (
+                       SELECT p.name
+                       FROM Booking b JOIN b.personnel p
+                       WHERE b.date = ?2
+                       AND ((b.duration.start < ?3 AND b.duration.end > ?4))
+               AND ((DAYOFWEEK(?2) NOT IN (1, 7) AND p.weekdayHours.start <= ?3 AND p.weekdayHours.end >= ?4)
+               OR (DAYOFWEEK(?2) IN (1, 7) AND p.weekdayHours.start <= ?3 AND p.weekdayHours.end >= ?4))
+           )""")
+    List<Personnel> getPersonnelAvailability(String[] sectors,
+                                             java.sql.Date date,
+                                             java.sql.Time startTime,
+                                             java.sql.Time endTime);
 }
