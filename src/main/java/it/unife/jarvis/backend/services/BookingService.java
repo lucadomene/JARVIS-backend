@@ -18,14 +18,16 @@ import java.util.Iterator;
 
 @Service
 public class BookingService {
-	@Autowired
-	private BookingsRepository bookingsRepository;
 
-	@Autowired
-	private VenuesRepository venuesRepository;
+	private final BookingsRepository bookingsRepository;
+	private final VenuesRepository venuesRepository;
+	private final PersonnelRepository personnelRepository;
 
-	@Autowired
-	private PersonnelRepository personnelRepository;
+	BookingService(BookingsRepository br, VenuesRepository vr, PersonnelRepository pr) {
+		bookingsRepository = br;
+		venuesRepository = vr;
+		personnelRepository = pr;
+	}
 
 	public Long insert (BookingDTO booking) throws Exception{
 		System.out.println(booking.getVenueId());

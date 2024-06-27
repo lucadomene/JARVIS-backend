@@ -12,8 +12,12 @@ import java.util.List;
 
 @Service
 public class VenueService {
-	@Autowired
-	private VenuesRepository venuesRepository;
+
+	final private VenuesRepository venuesRepository;
+
+	VenueService(VenuesRepository venuesRepository) {
+		this.venuesRepository = venuesRepository;
+	}
 
 	public Long insert (Venue venue) {
 		Venue temp = venuesRepository.save(venue);

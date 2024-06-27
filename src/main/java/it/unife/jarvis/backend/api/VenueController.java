@@ -19,8 +19,11 @@ import java.util.List;
 @RequestMapping("/api/venue")
 public class VenueController {
 
-	@Autowired
-	private VenueService venueService;
+	final private VenueService venueService;
+
+	VenueController(VenueService venueService) {
+		this.venueService = venueService;
+	}
 
 	@PostMapping("/add")
 	public ResponseEntity<String> addNewVenue (@RequestBody Venue venue) {

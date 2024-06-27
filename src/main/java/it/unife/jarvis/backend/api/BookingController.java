@@ -19,8 +19,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/booking")
 public class BookingController {
-    @Autowired
-    private BookingService bookingService;
+
+    final private BookingService bookingService;
+
+    BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<String> addNewBooking (@RequestBody BookingDTO booking) {

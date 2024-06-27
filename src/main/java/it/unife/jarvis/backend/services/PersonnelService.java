@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class PersonnelService {
-	@Autowired
-	private PersonnelRepository personnelRepository;
+
+	private final PersonnelRepository personnelRepository;
+
+	PersonnelService(PersonnelRepository personnelRepository) {
+		this.personnelRepository = personnelRepository;
+	}
 
 	public String insert (Personnel personnel) {
 		Personnel temp = personnelRepository.save(personnel);

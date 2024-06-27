@@ -17,8 +17,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/personnel")
 public class PersonnelController {
-    @Autowired
-    private PersonnelService personnelService;
+
+    final private PersonnelService personnelService;
+
+    PersonnelController(PersonnelService personnelService) {
+        this.personnelService = personnelService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<String> addNewPersonnel (@RequestBody Personnel personnel) {
