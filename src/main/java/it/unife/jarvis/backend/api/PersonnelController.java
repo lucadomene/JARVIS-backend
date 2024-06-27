@@ -1,6 +1,7 @@
 package it.unife.jarvis.backend.api;
 
 import it.unife.jarvis.backend.models.Personnel;
+import it.unife.jarvis.backend.models.Venue;
 import it.unife.jarvis.backend.services.PersonnelService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,19 @@ public class PersonnelController {
     public ResponseEntity<String> addNewPersonnel (@RequestBody Personnel personnel) {
         String name = personnelService.insert(personnel);
         return ResponseEntity.ok("Entity ID=" + name + " saved successfully\n");
+    }
+
+    // Chiamata esempio:
+    // http://localhost:8080/api/personnel/available?sectors=ricevimento,matrimonio&date=2024-05-16&start=14:00:00&end=18:00:00
+    @GetMapping("/available")
+    public ResponseEntity<List<Personnel>> listAvailable (
+            @RequestParam String[] sectors,
+            @RequestParam String date,
+            @RequestParam String start,
+            @RequestParam String end
+    ) {
+        List<Personnel> personnel = personnelService.listAvailable(sectors, date, start, end);
+        return ResponseEntity.ok(personnel);
     }
 
     @GetMapping("/ls")
