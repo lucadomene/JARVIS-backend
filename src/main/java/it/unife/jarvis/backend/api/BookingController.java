@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.service.annotation.GetExchange;
 
 import java.util.List;
 
@@ -37,6 +38,14 @@ public class BookingController {
 		}
     }
 
+    @GetMapping("/bookingofvenue")
+    public ResponseEntity<List<Booking>> getBookingOfVenue(
+            @RequestParam String name,
+            @RequestParam String id
+    ){
+        List<Booking> bookings = BookingService.getBookingOfVenue(name, id);
+        return ResponseEntity.ok(bookings);
+    }
     @GetMapping("/ls")
     public ResponseEntity<List<Booking>> listAllBooking () {
         // HttpHeaders responseHeaders = new HttpHeaders();

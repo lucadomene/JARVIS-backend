@@ -11,10 +11,7 @@ import it.unife.jarvis.backend.repositories.PersonnelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 @Service
 public class BookingService {
@@ -54,6 +51,15 @@ public class BookingService {
 
 	public void delete (Long id) {
 		bookingsRepository.deleteById(id);
+	}
+
+	public static List<Booking> getBookingOfVenue(String name, String id) {
+		Long idParsed = Long.parseLong(id);
+		return BookingsRepository.getBookingOfVenue(name, idParsed);
+	}
+
+	public List<Booking> getBookingsOfPersonnel(String name){
+		return BookingsRepository.getBookingsOfPersonnel(name);
 	}
 
 	public List<Booking> listAll () {

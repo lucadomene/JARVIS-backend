@@ -12,12 +12,16 @@ public interface BookingsRepository extends JpaRepository<Booking, Long> {
             SELECT b
             FROM Booking b JOIN Venue v ON b.venue = v
             WHERE v.name = ?1 OR v.id = ?2""")
-    List<Booking> getBookingOfVenue(String name, Long id);
+    static List<Booking> getBookingOfVenue(String name, Long id) {
+        return null;
+    }
 
-   /* @Query("SELECT b\n" +
-            "FROM Booking b JOIN Personnel p ON p.name = b.personnel.personnel_name\n" +
+    @Query("SELECT b\n" +
+            "FROM Booking b JOIN b.personnel p\n" +
             "WHERE p.name = ?1")
-    List<Booking> getBookingsOfPersonnel(String name); */
+    static List<Booking> getBookingsOfPersonnel(String name) {
+        return null;
+    }
 
 
 }
