@@ -41,6 +41,17 @@ public class VenueController {
 		return ResponseEntity.ok(venues);
 	}
 
+	@GetMapping("/availablebycapacity")
+	public ResponseEntity<List<Venue>> listAvailableByCapacity(
+			@RequestParam String max_capacity,
+			@RequestParam String date,
+			@RequestParam String start,
+			@RequestParam String end
+	){
+		List<Venue> venues = venueService.listAvailableByCapacity(max_capacity, date,start,end);
+		return ResponseEntity.ok(venues);
+	}
+
 	@GetMapping("/ls")
 	public ResponseEntity<List<Venue>> listAllVenues () {
 		return ResponseEntity.ok(venueService.listAll());

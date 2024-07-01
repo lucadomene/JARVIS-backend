@@ -58,7 +58,7 @@ public class BookingService {
 		return BookingsRepository.getBookingOfVenue(name, idParsed);
 	}
 
-	public List<Booking> getBookingsOfPersonnel(String name){
+	public static List<Booking> getBookingsOfPersonnel(String name){
 		return BookingsRepository.getBookingsOfPersonnel(name);
 	}
 
