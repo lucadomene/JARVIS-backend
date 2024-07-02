@@ -23,15 +23,13 @@ public interface VenuesRepository extends JpaRepository<Venue, Long> {
     List<Venue> findAvailableVenue(java.sql.Date date, java.sql.Time start, java.sql.Time end);
 
     @Query("""
-            SELECT v\n
-            FROM Venue v\n
+            SELECT v
+            FROM Venue v
             WHERE v.max_capacity>=?1 AND NOT EXISTS (SELECT b
-                                                     FROM Booking b
-                                                     WHERE b.venue = v
-                                                     AND b.date=?2 \n
-                                                                                 \n
-                                                      AND ((b.duration.start < ?3 AND b.duration.end > ?4)) \n
-                                                      AND ((DAYOFWEEK(?2) NOT IN (1, 7) AND v.weekdayHours.start <= ?3 AND v.weekdayHours.end >= ?4)
-                                                      OR (DAYOFWEEK(?2) IN (1, 7) AND v.weekendHours.start <= ?3 AND v.weekendHours.end >= ?4))""")
+                                                    FROM Booking b
+                                                    WHERE b.venue=v AND b.date = ?2
+                                                    AND (b.duration.start <= ?3 AND b.duration.end >= ?4)
+                                                    AND (DAYOFWEEK(?2) NOT IN (1,7) AND v.weekdayHours.start <= ?3 AND v.weekdayHours.end >= ?4)
+                                                    OR (DAYOFWEEK(?2) IN (1,7) AND v.weekendHours.start <= ?3 AND v.weekendHours.end >= ?4))""")
     List<Venue> findAvailableVenueByCapacity(Integer max_capacity, java.sql.Date date, java.sql.Time start, java.sql.Time end);
 }
