@@ -4,13 +4,8 @@ import it.unife.jarvis.backend.models.Venue;
 import it.unife.jarvis.backend.services.VenueService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 // import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -55,6 +50,14 @@ public class VenueController {
 	@GetMapping("/ls")
 	public ResponseEntity<List<Venue>> listAllVenues () {
 		return ResponseEntity.ok(venueService.listAll());
+	}
+
+	@GetMapping("/get/{id}")
+	public ResponseEntity<Venue> getVenue (@PathVariable Long id) {
+		Venue venue;
+		if ((venue = venueService.getOne(id)) != null) {
+			return ResponseEntity.ok(venue);
+		} else return ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/del")

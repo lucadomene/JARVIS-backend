@@ -31,6 +31,9 @@ public class Booking {
 	})
 	EmbeddableFields.TimeInterval duration;
 
+	@Column(name = "ssn", nullable = false, length = 16)
+	String ssn;
+
 	@ManyToOne
 	@JoinColumn(name="venue_id")
 	Venue venue;

@@ -25,7 +25,7 @@ public class VenueService {
 	}
 
 	public Venue getOne (Long id) {
-		return venuesRepository.findById(id).get();
+		return venuesRepository.findById(id).isPresent() ? venuesRepository.findById(id).get() : null;
 	}
 
 	public void delete (Long id) {

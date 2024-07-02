@@ -13,6 +13,8 @@ public class BookingDTO {
 
 	EmbeddableFields.TimeInterval duration;
 
+	String ssn;
+
 	@JsonProperty("venue_id")
 	Long venueId;
 
