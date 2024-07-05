@@ -23,5 +23,11 @@ public interface BookingsRepository extends JpaRepository<Booking, Long> {
         return null;
     }
 
+    @Query("SELECT b\n" +
+            "FROM Booking b\n" +
+            "WHERE b.ssn = ?1")
+    static List<Booking> getBookingsByCF(String ssn) {
+        return null;
+    }
 
 }

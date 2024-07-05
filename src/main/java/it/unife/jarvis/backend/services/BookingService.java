@@ -62,6 +62,10 @@ public class BookingService {
 		return BookingsRepository.getBookingsOfPersonnel(name);
 	}
 
+	public static List<Booking> getBookingsByCF(String ssn){
+		return BookingsRepository.getBookingsByCF(ssn);
+	}
+
 	public List<Booking> listAll () {
 		return bookingsRepository.findAll();
 	}

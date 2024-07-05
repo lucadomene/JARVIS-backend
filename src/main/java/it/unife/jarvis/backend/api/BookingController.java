@@ -54,6 +54,14 @@ public class BookingController {
         List<Booking> bookings = BookingService.getBookingsOfPersonnel(name);
         return ResponseEntity.ok(bookings);
     }
+
+    @GetMapping("/bookingbyCG")
+    public ResponseEntity<List<Booking>> getBookingByCF(
+            @RequestParam String ssn
+    ){
+        List<Booking> bookings = BookingService.getBookingsByCF(ssn);
+        return ResponseEntity.ok(bookings);
+    }
     @GetMapping("/ls")
     public ResponseEntity<List<Booking>> listAllBooking () {
         // HttpHeaders responseHeaders = new HttpHeaders();
