@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/venue")
@@ -26,24 +27,29 @@ public class VenueController {
 		return ResponseEntity.ok("Entity ID=" + id + " saved successfully\n");
 	}
 
-	@GetMapping("/available")
-	public ResponseEntity<List<Venue>> listAvailable (
-			@RequestParam String date,
-			@RequestParam String start,
-			@RequestParam String end
-	) {
-		List<Venue> venues = venueService.listAvailable(date, start, end);
-		return ResponseEntity.ok(venues);
-	}
+//	@GetMapping("/available")
+//	public ResponseEntity<List<Venue>> listAvailable (
+//			@RequestParam String date,
+//			@RequestParam String start,
+//			@RequestParam String end
+//	) {
+//		List<Venue> venues = venueService.listAvailable(date, start, end);
+//		return ResponseEntity.ok(venues);
+//	}
 
-	@GetMapping("/availablebycapacity")
+	@GetMapping("/available")
 	public ResponseEntity<List<Venue>> listAvailableByCapacity(
-			@RequestParam String max_capacity,
+			@RequestParam(name = "capacity") Optional<Integer> max_capacity,
 			@RequestParam String date,
 			@RequestParam String start,
 			@RequestParam String end
 	){
-		List<Venue> venues = venueService.listAvailableByCapacity(max_capacity, date,start,end);
+		List<Venue> venues;
+		if (max_capacity.isPresent()) {
+			venues = venueService.listAvailableByCapacity(max_capacity.get(), date,start,end);
+		} else {
+			venues = venueService.listAvailable(date, start, end);
+		}
 		return ResponseEntity.ok(venues);
 	}
 

@@ -39,12 +39,11 @@ public class VenueService {
 		return venuesRepository.findAvailableVenue(dateParsed, startParsed, endParsed);
 	}
 
-	public List<Venue> listAvailableByCapacity(String max_capacity, String date, String start, String end){
-		Integer capacityParsed = Integer.parseInt(max_capacity);
+	public List<Venue> listAvailableByCapacity(Integer max_capacity, String date, String start, String end){
 		Date dateParsed = java.sql.Date.valueOf(date);
 		Time startParsed = java.sql.Time.valueOf(start);
 		Time endParsed = java.sql.Time.valueOf(end);
-		return venuesRepository.findAvailableVenueByCapacity(capacityParsed, dateParsed, startParsed, endParsed);
+		return venuesRepository.findAvailableVenueByCapacity(max_capacity, dateParsed, startParsed, endParsed);
 	}
 
 	public List<Venue> listAll () {

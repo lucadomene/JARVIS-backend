@@ -53,17 +53,17 @@ public class BookingService {
 		bookingsRepository.deleteById(id);
 	}
 
-	public static List<Booking> getBookingOfVenue(String name, String id) {
+	public List<Booking> getBookingOfVenue(String name, String id) {
 		Long idParsed = Long.parseLong(id);
-		return BookingsRepository.getBookingOfVenue(name, idParsed);
+		return bookingsRepository.getBookingOfVenue(name, idParsed);
 	}
 
-	public static List<Booking> getBookingsOfPersonnel(String name){
-		return BookingsRepository.getBookingsOfPersonnel(name);
+	public List<Booking> getBookingsOfPersonnel(String name){
+		return bookingsRepository.getBookingsOfPersonnel(name);
 	}
 
-	public static List<Booking> getBookingsByCF(String ssn){
-		return BookingsRepository.getBookingsByCF(ssn);
+	public List<Booking> getBookingsByCF(String ssn){
+		return bookingsRepository.getBookingsByCF(ssn);
 	}
 
 	public List<Booking> listAll () {

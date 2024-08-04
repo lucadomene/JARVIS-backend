@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.service.annotation.GetExchange;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/booking")
@@ -38,34 +39,23 @@ public class BookingController {
 		}
     }
 
-    @GetMapping("/bookingofvenue")
-    public ResponseEntity<List<Booking>> getBookingOfVenue(
-            @RequestParam String name,
-            @RequestParam String id
-    ){
-        List<Booking> bookings = BookingService.getBookingOfVenue(name, id);
-        return ResponseEntity.ok(bookings);
-    }
-
-    @GetMapping("/bookingofpersonnel")
-    public ResponseEntity<List<Booking>> getBookingsOfPersonnel(
-            @RequestParam String name
-    ){
-        List<Booking> bookings = BookingService.getBookingsOfPersonnel(name);
-        return ResponseEntity.ok(bookings);
-    }
-
-    @GetMapping("/bookingbyCG")
-    public ResponseEntity<List<Booking>> getBookingByCF(
-            @RequestParam String ssn
-    ){
-        List<Booking> bookings = BookingService.getBookingsByCF(ssn);
-        return ResponseEntity.ok(bookings);
-    }
     @GetMapping("/ls")
-    public ResponseEntity<List<Booking>> listAllBooking () {
+    public ResponseEntity<List<Booking>> listAllBooking (
+            @RequestParam(name = "cf") Optional<String> ssn,
+            @RequestParam(name = "personnel") Optional<String> personnel,
+            @RequestParam(name = "venue") Optional<String> venue,
+            @RequestParam(name = "venueid") Optional<Long> venueid
+    ) {
         // HttpHeaders responseHeaders = new HttpHeaders();
-        return ResponseEntity.ok(bookingService.listAll());
+        if (ssn.isPresent()) {
+            return ResponseEntity.ok(bookingService.getBookingsByCF(ssn.get()));
+        } else if (personnel.isPresent()) {
+            return ResponseEntity.ok(bookingService.getBookingsOfPersonnel(personnel.get()));
+        } else if (venue.isPresent() || venueid.isPresent()) {
+            return ResponseEntity.ok(bookingService.getBookingOfVenue(venue.get(), venueid.get().toString()));
+        } else {
+            return ResponseEntity.ok(bookingService.listAll());
+        }
     }
 
     @GetMapping("/del")
