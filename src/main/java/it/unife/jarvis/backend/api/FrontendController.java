@@ -4,6 +4,8 @@ import it.unife.jarvis.backend.components.RESTConsumer;
 import it.unife.jarvis.backend.models.EventInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,22 +18,35 @@ import java.util.List;
 @RequestMapping("/api/callREST")
 public class FrontendController {
 
-    @Autowired
     RESTConsumer consumer;
 
+    FrontendController(RESTConsumer consumer) {
+        this.consumer = consumer;
+    }
+
     @GetMapping("/getEvent")
-    public @ResponseBody EventInfo getEventInfo () {
-        EventInfo output = consumer.consumeRESTParse("http://localhost:3000/api/mock_supplier", EventInfo.class);
-        return output;
+    public ResponseEntity<?> getEventInfo () {
+        try {
+            EventInfo output = consumer.consumeRESTParse("http://localhost:3000/api/mock_supplier", EventInfo.class);
+            return ResponseEntity.ok(output);
+        } catch (Exception exc) {
+            exc.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exc.getMessage());
+        }
     }
 
     @GetMapping("/getEvents")
-    public @ResponseBody List<EventInfo> getEventsInfo () {
-        List<EventInfo> events = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
-            EventInfo e = consumer.consumeRESTParse("http://localhost:3000/api/mock_supplier", EventInfo.class);
-            events.add(e);
+    public ResponseEntity<?> getEventsInfo () {
+        try {
+            List<EventInfo> events = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                EventInfo e = consumer.consumeRESTParse("http://localhost:3000/api/mock_supplier", EventInfo.class);
+                events.add(e);
+            }
+            return ResponseEntity.ok(events);
+        } catch (Exception exc) {
+            exc.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exc.getMessage());
         }
-        return events;
     }
 }

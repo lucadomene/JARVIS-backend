@@ -5,6 +5,7 @@ import it.unife.jarvis.backend.models.BookingDTO;
 import it.unife.jarvis.backend.services.BookingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,38 +30,47 @@ public class BookingController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addNewBooking (@RequestBody BookingDTO booking) {
+    public ResponseEntity<?> addNewBooking (@RequestBody BookingDTO booking) {
         try {
 			Long id = bookingService.insert(booking);
-			return ResponseEntity.ok(id.toString());
+			return ResponseEntity.ok(id);
 		} catch (Exception exc) {
 			exc.printStackTrace();
-			return ResponseEntity.ok(exc.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exc.getMessage());
 		}
     }
 
     @GetMapping("/ls")
-    public ResponseEntity<List<Booking>> listAllBooking (
+    public ResponseEntity<?> listAllBooking (
             @RequestParam(name = "cf") Optional<String> ssn,
             @RequestParam(name = "personnel") Optional<String> personnel,
             @RequestParam(name = "venue") Optional<String> venue,
             @RequestParam(name = "venueid") Optional<Long> venueid
     ) {
-        // HttpHeaders responseHeaders = new HttpHeaders();
-        if (ssn.isPresent()) {
-            return ResponseEntity.ok(bookingService.getBookingsByCF(ssn.get()));
-        } else if (personnel.isPresent()) {
-            return ResponseEntity.ok(bookingService.getBookingsOfPersonnel(personnel.get()));
-        } else if (venue.isPresent() || venueid.isPresent()) {
-            return ResponseEntity.ok(bookingService.getBookingOfVenue(venue.get(), venueid.get().toString()));
-        } else {
-            return ResponseEntity.ok(bookingService.listAll());
+        try {
+            if (ssn.isPresent()) {
+                return ResponseEntity.ok(bookingService.getBookingsByCF(ssn.get()));
+            } else if (personnel.isPresent()) {
+                return ResponseEntity.ok(bookingService.getBookingsOfPersonnel(personnel.get()));
+            } else if (venue.isPresent() || venueid.isPresent()) {
+                return ResponseEntity.ok(bookingService.getBookingOfVenue(venue.get(), venueid.get().toString()));
+            } else {
+                return ResponseEntity.ok(bookingService.listAll());
+            }
+        } catch (Exception exc) {
+            exc.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exc.getMessage());
         }
     }
 
     @GetMapping("/del")
-    public ResponseEntity<String> deleteBooking (@RequestParam Long id) {
-        bookingService.delete(id);
-        return ResponseEntity.ok("Deleted successfully");
+    public ResponseEntity<?> deleteBooking (@RequestParam Long id) {
+        try {
+            bookingService.delete(id);
+            return ResponseEntity.ok("Deleted successfully");
+        } catch (Exception exc) {
+            exc.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exc.getMessage());
+        }
     }
 }
