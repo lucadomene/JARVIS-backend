@@ -32,7 +32,7 @@ public class BookingController {
     public ResponseEntity<String> addNewBooking (@RequestBody BookingDTO booking) {
         try {
 			Long id = bookingService.insert(booking);
-			return ResponseEntity.ok("Entity ID=" + id + " saved successfully\n");
+			return ResponseEntity.ok(id.toString());
 		} catch (Exception exc) {
 			exc.printStackTrace();
 			return ResponseEntity.ok(exc.getMessage());
