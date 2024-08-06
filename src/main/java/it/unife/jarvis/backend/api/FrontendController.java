@@ -51,8 +51,14 @@ public class FrontendController {
     }
 
     @GetMapping("/getUser")
-    public @ResponseBody String getUser () {
-        String output = consumer.consumeRESTParse("http://localhost:3000/api/fetchUser", String.class);
-        return output;
+    public ResponseEntity<?> getUser () {
+        try {
+            String output = consumer.consumeRESTParse("http://localhost:3000/api/fetchUser", String.class);
+            return ResponseEntity.ok(output);
+        }
+        catch(Exception exc) {
+            exc.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exc.getMessage());
+        }
     }
 }

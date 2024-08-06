@@ -9,6 +9,14 @@ Repository del progetto di backend del corso di "Ingegneria del Software" (UniFe
 
 ## Funzionamento di prova
 ### Avvio dell'applicativo
+L'applicativo utilizza servizi REST per ottenere da altri team i dati necessari al funzionamento del progetto. 
+Per facilitare il processo di sviluppo e testing, è possibile utilizzare un mock del servizio con Mockoon. 
+
+Per questo progetto sono stati necessari alcuni dati riguardanti gli eventi e gli utenti.
+Sono forniti nel progetto i file JSON corrispondenti a questi dati per configurare il mock tramite Mockoon.
+
+È quindi opportuno abilitare il servizio REST, che sia un mock o un servizio reale, sulla porta 3000 prima di avviare il backend dell'applicativo.
+
 Per far partire l'applicativo SpringBoot, utilizzare il comando
 ```sh
 ./gradlew bootRun

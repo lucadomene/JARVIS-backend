@@ -1,0 +1,8 @@
+{
+  "event_id": "{{ faker 'number.int' min=1 max=10}}",
+  "event_type": "{{oneOf (array 'catering' 'pulizie' 'organizzazione' 'intrattenimento' 'decorazioni' 'tecnologia' 'animazione') }}",
+  "date": "{{dateFormat (faker 'date.soon' days=365) 'yyyy-MM-dd'}}",
+  "schedule_start": "{{time '07:00' '14:00' 'HH:mm:ss'}}",
+  "schedule_end": "{{time '15:00' '23:59' 'HH:mm:ss'}}",
+  "max_participants": "{{ faker 'number.int' min=5 max=1000}}"
+}
