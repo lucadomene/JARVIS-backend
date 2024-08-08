@@ -27,7 +27,6 @@ public class BookingService {
 	}
 
 	public Long insert (BookingDTO booking) throws Exception{
-		System.out.println(booking.getVenueId());
 		Venue venue = this.venuesRepository.findById(booking.getVenueId()).orElseThrow(() -> new Exception("invalid venue ID"));
 
 		Set<Personnel> personnel = new HashSet<Personnel>();
@@ -38,10 +37,11 @@ public class BookingService {
 		}
 		Booking tempBooking = new Booking();
 		tempBooking.setDate(booking.getDate());
+		tempBooking.setSsn(booking.getSsn());
 		tempBooking.setDuration(booking.getDuration());
 		tempBooking.setVenue(venue);
 		tempBooking.setPersonnel(personnel);
-		
+
 		return (bookingsRepository.save(tempBooking)).getId();
 	}
 
