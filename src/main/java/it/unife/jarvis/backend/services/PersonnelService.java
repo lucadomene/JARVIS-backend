@@ -24,14 +24,13 @@ public class PersonnelService {
 		return temp.getName();
 	}
 
-	public List<Personnel> listAvailable(String[] sectors,
-										String date,
+	public List<Personnel> listAvailable(String date,
 										String start,
 										String end) {
 		Date dateParsed = java.sql.Date.valueOf(date);
 		Time startParsed = java.sql.Time.valueOf(start);
 		Time endParsed = java.sql.Time.valueOf(end);
-		return personnelRepository.getPersonnelAvailability(sectors, dateParsed, startParsed, endParsed);
+		return personnelRepository.getPersonnelAvailability(dateParsed, startParsed, endParsed);
 	}
 
 	public Personnel getOne (String name) {

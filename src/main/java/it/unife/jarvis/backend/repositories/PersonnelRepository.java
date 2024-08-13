@@ -11,17 +11,15 @@ public interface PersonnelRepository extends JpaRepository<Personnel, String> {
     @Query("""
            SELECT p
            FROM Personnel p JOIN p.sector s
-           WHERE s IN ?1
-           AND p NOT IN (
+           WHERE p NOT IN (
                        SELECT p
                        FROM Booking b JOIN b.personnel p
-                       WHERE b.date = ?2
-                       AND (b.duration.start < ?3 AND b.duration.end > ?4))
-           AND ((DAYOFWEEK(?2) NOT IN (1, 7) AND p.weekdayHours.start <= ?3 AND p.weekdayHours.end >= ?4)
-           OR (DAYOFWEEK(?2) IN (1, 7) AND p.weekendHours.start <= ?3 AND p.weekendHours.end >= ?4))
+                       WHERE b.date = ?1
+                       AND (b.duration.start < ?2 AND b.duration.end > ?3))
+           AND ((DAYOFWEEK(?1) NOT IN (1, 7) AND p.weekdayHours.start <= ?2 AND p.weekdayHours.end >= ?3)
+           OR (DAYOFWEEK(?1) IN (1, 7) AND p.weekendHours.start <= ?2 AND p.weekendHours.end >= ?3))
            """)
-    List<Personnel> getPersonnelAvailability(String[] sectors,
-                                             java.sql.Date date,
+    List<Personnel> getPersonnelAvailability(java.sql.Date date,
                                              java.sql.Time startTime,
                                              java.sql.Time endTime);
 }

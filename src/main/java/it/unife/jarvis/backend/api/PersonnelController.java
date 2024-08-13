@@ -36,13 +36,13 @@ public class PersonnelController {
     // http://localhost:8080/api/personnel/available?sectors=ricevimento,matrimonio&date=2024-05-16&start=14:00:00&end=18:00:00
     @GetMapping("/available")
     public ResponseEntity<?> listAvailable (
-            @RequestParam String[] sectors,
+            //@RequestParam String[] sectors,
             @RequestParam String date,
             @RequestParam String start,
             @RequestParam String end
     ) {
         try {
-            List<Personnel> personnel = personnelService.listAvailable(sectors, date, start, end);
+            List<Personnel> personnel = personnelService.listAvailable( date, start, end);
             return ResponseEntity.ok(personnel);
         } catch (Exception exc) {
             exc.printStackTrace();
