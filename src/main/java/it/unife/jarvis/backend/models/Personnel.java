@@ -7,26 +7,17 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-import java.sql.Date;
-
 @Entity
-@Table(name="venues")
+@Table(name="personnel")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Venue {
-
+public class Personnel {
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long id;
-
 	String name;
 
-	String address;
-
-	int max_capacity;
-
-	double rent_cost;
+	double hourly_cost;
 
 	@Embedded
 	@AttributeOverrides({
@@ -43,13 +34,9 @@ public class Venue {
 	EmbeddableFields.TimeInterval weekendHours;
 
 	@ElementCollection
-	@CollectionTable( name="closing_days", foreignKey = @ForeignKey(
-			name = "venue_id",
-			foreignKeyDefinition = "foreign key (venue_id) references venues (id) on delete cascade"))
-	@Column(name="closing_day")
-	List<Date> closingDays;
-
-	// @ManyToOne(cascade = CascadeType.ALL)
-	// @JoinColumn(name="venueId")
-	// Venue venue;
+	@CollectionTable( name="sectors", foreignKey = @ForeignKey(
+			name = "personnel_name",
+			foreignKeyDefinition = "foreign key (personnel_name) references personnel (name) on delete cascade"))
+	@Column(name="sector")
+	List<String> sector;
 }
